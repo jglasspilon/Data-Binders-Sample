@@ -1,6 +1,6 @@
 # Case Study: Data Binders
 
-Designed and developed a "No-code" data binder system that allows simple generic data binding of JSON data to various UGUI components.
+Designed and developed a "No-code" data binder system that allows generic data binding of JSON data to various UGUI components.
 
 ---
 
