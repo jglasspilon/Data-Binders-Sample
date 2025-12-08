@@ -49,8 +49,10 @@ Vastly improved turn-around speed and build stability for graphic modifications/
 ---
 
 # Exhibit Space
-### See for yourself!
-The demo is fully testable. Simply download as zip, extract and run inside of Unity to see the components and how they work.
+### See for yourself
+The demo is fully playable. Simply download as zip, extract and run inside of Unity to explore the system and its implementation.
+
+---
 
 ### Runtime results
 ![Data-Binders Demo](Media/Data-Binder-Sample-Demo.gif)
