@@ -11,7 +11,7 @@ Designed and developed a "No-code" data binder system that allows generic data b
 
 ---
 
-## Role & Responsibilities 
+## Responsibilities 
 - Designed the code architecture for the system
 - Determined and prioritized needed components with mentality towards easy scalling 
 - Built modular, data-binder components  
