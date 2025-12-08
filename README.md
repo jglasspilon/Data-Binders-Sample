@@ -52,7 +52,7 @@ Vastly improved turn-around speed and build stability for graphic modifications/
 Runtime results:
 ![Data-Binders Demo](Media/Data-Binder-Sample-Demo.gif)
 
-Code required to bind all of the data to graphics for this demo:
+Entire code required to bind all of the data to graphics for this demo using the Data-Binder system:
 <pre>public class DataBinderDemo : MonoBehaviour
 {
     [SerializeField]
