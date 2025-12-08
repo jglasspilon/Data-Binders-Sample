@@ -49,4 +49,4 @@ Vastly improved turn-around speed and build stability for graphic modifications/
 ---
 
 ## Screenshots / GIFs
-Coming soon. 
+![Data-Binders Demo](media/Data-Binder-Sample-Demo.gif)
