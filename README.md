@@ -21,29 +21,29 @@ Designed and developed a "No-code" data binder system that allows generic data b
 ---
 
 ## Challenge
-Creating data-driven graphics generally involves the hard coding of data mapped to various serialized components. This makes the creation of graphics a very programmer first approach and is not very agile. 
-This also involves an ever increasing code base to maintain as the graphics increase in scope and new graphics are created.
+Creating data-driven graphics generally involves the manual coding of data mapped to various serialized components. This makes the creation of graphics a very programmer first approach and is not very agile. 
+This also creates an ever increasing code base to maintain as the graphics increase in scope and new graphics are created.
 
 ---
 
 ## Solution
-Take an MVVM approach and create reusable components that can specify what field from a JSON payload to use and how to bind that data to various UGUI components. 
+Take an MVVM (Model-View-ViewModel) approach and create reusable components that can specify what field from a JSON payload to use and how to bind that data to various UGUI components. 
 Each of these binder components would then be attached to a parent Data Binder that would feed them the JSON data provided by the graphic class. 
 In this way, the graphic class only has knowledge of the parent binder to allow for the transfer of data. 
 This approach abstracts out all of the graphical binding logic from the graphic class and allows for very quick modifications with zero code manipulation once implemented.
 
 ---
 
-## Outcome / Impact
+## Impact
 Vastly improved turn-around speed and build stability for graphic modifications/additions and changes to data binding. 
 - Before -> days of development time with extra QA required to catch bugs and issues
-- After -> hours of implementation time with zero QA required since design/data modifications resulted in zero changes to code  
+- After -> hours of integration time with zero QA required since design/data modifications resulted in zero changes to code  
 
 ---
 
 ## Key Learnings
 - Abstracting out data binding logic vastly helps reduce code complexity and improve scalability
-- "No-Code" scalable systems allow for reduced scope of QA and vastly reduces the amount of code maintenance, as well as the chances for error
+- "No-Code" scalable systems like this allow for reduced scope of QA and vastly reduces the amount of code maintenance and chances to introduce new bugs
 
 ---
 
@@ -51,14 +51,22 @@ Vastly improved turn-around speed and build stability for graphic modifications/
 ### See for yourself
 The demo is fully playable. Simply download as zip, extract and run inside of Unity to explore the system and its implementation.
 
+### Not a developer? Not a Problem!
+Simply download this build and you can see the Data-Binder system in action. 
+[Download Game Build](https://github.com/jglasspilon/Data-Binders-Sample/raw/refs/heads/master/Build.zip)
+1. Download zip
+2. Extract all files
+3. Run app DataBinderSample.exe
+> Hit Alt+F4 to exit the app
+
 ---
 
-### Runtime results
+### Runtime Results
 ![Data-Binders Demo](Media/Data-Binder-Sample-Demo.gif)
 
 ---
 
-### Implementation logic results in under 50 lines of code
+### Implementation Logic Requires Under 50 Lines of Code
 ```csharp
 public class DataBinderDemo : MonoBehaviour
 {
