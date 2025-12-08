@@ -1,6 +1,6 @@
 # Case Study: Data Binders
 
-Designed and developed a "No-code" data binder system that allows simple generic data binding of JSON data to various UGUI components.
+Designed and developed a "No-code" data binder system that allows generic data binding of JSON data to various UGUI components.
 
 ---
 
@@ -8,7 +8,6 @@ Designed and developed a "No-code" data binder system that allows simple generic
 - Unity UGUI
 - C#  
 - JSON 
-- Git version control  
 
 ---
 
@@ -48,5 +47,69 @@ Vastly improved turn-around speed and build stability for graphic modifications/
 
 ---
 
-## Screenshots / GIFs
-Coming soon. 
+# Exhibit Space
+### See for yourself
+The demo is fully playable. Simply download as zip, extract and run inside of Unity to explore the system and its implementation.
+
+---
+
+### Runtime results
+![Data-Binders Demo](Media/Data-Binder-Sample-Demo.gif)
+
+---
+
+### Implementation logic results in under 50 lines of code
+```csharp
+public class DataBinderDemo : MonoBehaviour
+{
+    [SerializeField] //Element that registers data and binds it to all connected dataBinder components
+    private DataBinder m_dataBinder;                            
+
+    [SerializeField] //Element that generates and controls a list of dataBinder prefabs
+    private DataBinderList m_dataList;                          
+
+    [SerializeField] //Animator that controls the animation of the wipe that covers the chart during data transition
+    private Animator m_chartWipe;                               
+
+    // Path (relative to the streaming assets path) pointing to the JSON files
+    private const string PATH_TO_JSON_FILE = "/JSONData/";
+
+    // Specifies the JSON file to read from on app start
+    private const string STARTUP_DATA = "Nasdaq.json";          
+
+    private void Start()
+    {
+        SetStartupData();
+    }
+
+    private void SetStartupData()
+    {
+        JSONNode json = FileReader.ReadJSONFromFile(Application.streamingAssetsPath + PATH_TO_JSON_FILE + STARTUP_DATA);
+        if (json != null)
+            StartCoroutine(ChangeData(json, false));
+        else
+            Debug.LogError($"JSON file {STARTUP_DATA} does not exist. Could not change data.");
+    }
+
+    public void TryChangeData(string JSONFile)
+    {
+        JSONNode json = FileReader.ReadJSONFromFile(Application.streamingAssetsPath + PATH_TO_JSON_FILE + JSONFile);
+        if (json != null)
+            StartCoroutine(ChangeData(json));
+        else
+            Debug.LogError($"JSON file {JSONFile} does not exist. Could not change data.");
+    }
+
+    private IEnumerator ChangeData(JSONNode json, bool playAnimation = true)
+    {
+        m_dataList.GenerateList(json);
+        m_dataBinder.RegisterData(json);
+
+        if (playAnimation)
+            yield return StartCoroutine(AnimationDispatcher.TriggerAnimation(m_chartWipe, "Play", 0.5f));
+
+        m_dataBinder.BindData(); 
+    }
+}
+```
+
