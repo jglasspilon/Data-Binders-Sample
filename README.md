@@ -8,7 +8,6 @@ Designed and developed a "No-code" data binder system that allows generic data b
 - Unity UGUI
 - C#  
 - JSON 
-- Git version control  
 
 ---
 
