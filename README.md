@@ -43,7 +43,7 @@ Vastly improved turn-around speed and build stability for graphic modifications/
 
 ## Key Learnings
 - Abstracting out data binding logic vastly helps reduce code complexity and improve scalability
-- "No-Code" scalable systems like this allow for reduced scope of QA and vastly reduces the amount of code maintenance and chances to introduce new bugs
+- "No-Code" scalable systems like this allow for reduced scope of QA and vastly reduces the amount of code maintenance and chances of introducing new bugs
 
 ---
 
