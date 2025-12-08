@@ -47,20 +47,22 @@ Vastly improved turn-around speed and build stability for graphic modifications/
 
 ---
 
-# Exhibit Space
-### See for yourself
+## See for yourself
 The demo is fully playable. Simply download as zip, extract and run inside of Unity to explore the system and its implementation.
 
 ### Not a developer? Not a Problem!
-Simply download this build and you can see the Data Binder system in action. 
+Simply download this build and you can see the Data Binder system in action.<br>
 [Download Game Build](https://github.com/jglasspilon/Data-Binders-Sample/raw/refs/heads/master/Build.zip)
+
+### Steps:
 1. Download zip
 2. Extract all files
-3. Run app DataBinderSample.exe
+3. Enter unzipped build folder and run app **DataBinderSample.exe**
 > Hit Alt+F4 to exit the app
 
 ---
 
+# At a Glance
 ### Runtime Results
 ![Data-Binders Demo](Media/Data-Binder-Sample-Demo.gif)
 
