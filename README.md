@@ -23,7 +23,7 @@ Designed and developed a "No-code" data binder system that allows simple generic
 
 ## Challenge
 Creating data-driven graphics generally involves the hard coding of data mapped to various serialized components. This makes the creation of graphics a very programmer first approach and is not very agile. 
-This also involves a growing code base to maintain as the graphics increase in scope and new graphics are created.
+This also involves an ever increasing code base to maintain as the graphics increase in scope and new graphics are created.
 
 ---
 
