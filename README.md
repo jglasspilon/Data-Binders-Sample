@@ -57,6 +57,8 @@ The demo is fully playable. Simply download as zip, extract and run inside of Un
 ### Runtime results
 ![Data-Binders Demo](Media/Data-Binder-Sample-Demo.gif)
 
+---
+
 ### Implementation logic results in under 50 lines of code
 ```csharp
 public class DataBinderDemo : MonoBehaviour
