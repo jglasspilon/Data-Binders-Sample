@@ -5,6 +5,14 @@ Designed and developed a "No-code" data binder system that allows simple generic
 
 ---
 
+## Tools & Technologies
+- Unity UGUI
+- C#  
+- JSON 
+- Git version control  
+
+---
+
 ## Role & Responsibilities 
 - Designed the code architecture for the system
 - Determined and prioritized needed components with mentality towards easy scalling 
@@ -28,13 +36,6 @@ This approach abstracts out all of the graphical binding logic from the graphic 
 
 ---
 
-## Tools & Technologies
-- Unity UGUI
-- C#  
-- JSON 
-- Git version control  
-
----
 
 ## Outcome / Impact
 Vastly improved turn-around speed for graphic modifications and changes to data binding. 
