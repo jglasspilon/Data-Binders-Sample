@@ -48,24 +48,28 @@ Vastly improved turn-around speed and build stability for graphic modifications/
 
 ---
 
-## Exhibit Space
+# Exhibit Space
 ### Runtime results:
 ![Data-Binders Demo](Media/Data-Binder-Sample-Demo.gif)
 
-### Implementation logic results in under 50 lines of code for full demo:
-<pre>public class DataBinderDemo : MonoBehaviour
+### Implementation logic results in under 50 lines of code:
+```csharp
+public class DataBinderDemo : MonoBehaviour
 {
-    [SerializeField]
-    private DataBinder m_dataBinder;                            //Element that registers data and binds it to all connected dataBinder components
+    [SerializeField] //Element that registers data and binds it to all connected dataBinder components
+    private DataBinder m_dataBinder;                            
 
-    [SerializeField]
-    private DataBinderList m_dataList;                          //Element that generates and controls a list of dataBinder prefabs
+    [SerializeField] //Element that generates and controls a list of dataBinder prefabs
+    private DataBinderList m_dataList;                          
 
-    [SerializeField]
-    private Animator m_chartWipe;                               //Animator that controls the animation of the wipe that covers the chart during data transition
+    [SerializeField] //Animator that controls the animation of the wipe that covers the chart during data transition
+    private Animator m_chartWipe;                               
 
-    private const string PATH_TO_JSON_FILE = "/JSONData/";      //Path (relative to the streaming assets path) pointing to the JSON files
-    private const string STARTUP_DATA = "Nasdaq.json";          //Specifies the JSON file to read from on app start
+    // Path (relative to the streaming assets path) pointing to the JSON files
+    private const string PATH_TO_JSON_FILE = "/JSONData/";
+
+    // Specifies the JSON file to read from on app start
+    private const string STARTUP_DATA = "Nasdaq.json";          
 
     private void Start()
     {
@@ -92,18 +96,14 @@ Vastly improved turn-around speed and build stability for graphic modifications/
 
     private IEnumerator ChangeData(JSONNode json, bool playAnimation = true)
     {
-        //Generates a list of dataBinders based on the json provided
         m_dataList.GenerateList(json);
-
-        //Registers the json data provided to the dataBinder
         m_dataBinder.RegisterData(json);
 
-        //Plays the animation for the chart wipe and waits for half of the animation
-        if(playAnimation)
+        if (playAnimation)
             yield return StartCoroutine(AnimationDispatcher.TriggerAnimation(m_chartWipe, "Play", 0.5f));
 
-        //Bind the new data to all databinder components tied to the dataBinder
         m_dataBinder.BindData(); 
     }
 }
-</pre>
+```
+
