@@ -37,9 +37,9 @@ This approach abstracts out all of the graphical binding logic from the graphic 
 ---
 
 ## Outcome / Impact
-Vastly improved turn-around speed for graphic modifications and changes to data binding. 
-- Before: days of development time with extra QA required
-- After: hours of implementation time with zero QA required since design/data modifications resulted in zero changes to code.  
+Vastly improved turn-around speed and build stability for graphic modifications and changes to data binding. 
+- Before -> days of development time with extra QA required to catch bugs and issues
+- After -> hours of implementation time with zero QA required since design/data modifications resulted in zero changes to code  
 
 ---
 
