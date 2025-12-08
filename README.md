@@ -36,16 +36,15 @@ This approach abstracts out all of the graphical binding logic from the graphic 
 
 ---
 
-
 ## Outcome / Impact
 Vastly improved turn-around speed for graphic modifications and changes to data binding. 
-Before: days of development time with extra QA required
-After: hours of implementation time with zero QA required since design/data modifications would lead to zero changes in code.  
+- Before: days of development time with extra QA required
+- After: hours of implementation time with zero QA required since design/data modifications resulted in zero changes to code.  
 
 ---
 
 ## Screenshots / GIFs
-Add images or short GIFs to showcase the UI work. Keep it generic to avoid proprietary content.  
+Coming soon. 
 
 ## Key Learnings
 - Abstracting out data binding logic vastly helps reduce code complexity and improve scalability
