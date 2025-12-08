@@ -5,9 +5,7 @@ Designed and developed a "No-code" data binder system that allows simple generic
 
 ---
 
-## Role & Responsibilities
-Describe your role specifically. Focus on **UI/UX programming responsibilities**.  
-*Example:*  
+## Role & Responsibilities 
 - Designed the code architecture for the system
 - Determined and prioritized needed components with mentality towards easy scalling 
 - Built modular, data-binder components  
