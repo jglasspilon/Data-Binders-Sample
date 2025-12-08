@@ -9,7 +9,8 @@ Designed and developed a "No-code" data binder system that allows simple generic
 - Designed the code architecture for the system
 - Determined and prioritized needed components with mentality towards easy scalling 
 - Built modular, data-binder components  
-- Built single point of entry component for easy one line consumer implementation  
+- Built single point of entry component for easy one line consumer implementation
+- Built single point of entry component for generating prefabs from JSON array data
 
 ---
 
