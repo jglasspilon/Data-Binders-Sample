@@ -85,6 +85,8 @@ namespace UnityEditor.UI
             ProceduralImageSpriteGUI();
 
             EditorGUILayout.PropertyField(m_Color);
+            //EditorGUILayout.PropertyField(m_Material);
+            
             RaycastControlsGUI();
             ProceduralImageTypeGUI();
             EditorGUILayout.Space();

@@ -11,6 +11,7 @@ public class FreeModifier : ProceduralImageModifier {
 		}
 		set {
 			radius = value;
+			_Graphic.SetVerticesDirty();
 		}
 	}
 

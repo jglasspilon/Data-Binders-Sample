@@ -18,6 +18,21 @@ namespace UnityEngine.UI.ProceduralImage
         [SerializeField] private float borderWidth;
         private ProceduralImageModifier modifier;
         private static Material materialInstance;
+        private static Material DefaultProceduralImageMaterial
+        {
+            get
+            {
+                if (materialInstance == null)
+                {
+                    materialInstance = new Material(Shader.Find("UI/Procedural UI Image"));
+                }
+                return materialInstance;
+            }
+            set
+            {
+                materialInstance = value;
+            }
+        }
         [SerializeField] private float falloffDistance = 1;
 
         public float BorderWidth
@@ -91,7 +106,8 @@ namespace UnityEngine.UI.ProceduralImage
                     Modifier = this.GetComponent<ProceduralImageModifier>();
                     this.SetAllDirty();
                 }
-                else if(modifier == null){
+                else if (modifier == null)
+                {
                     this.gameObject.AddComponent(value);
                     Modifier = this.GetComponent<ProceduralImageModifier>();
                     this.SetAllDirty();
@@ -116,17 +132,14 @@ namespace UnityEngine.UI.ProceduralImage
         /// </summary>
         void Init()
         {
+            FixTexCoordsInCanvas();
             this.m_OnDirtyVertsCallback += OnVerticesDirty;
             this.preserveAspect = false;
+            this.material = null;
             if (this.sprite == null)
             {
                 this.sprite = EmptySprite.Get();
             }
-            if (materialInstance == null)
-            {
-                materialInstance = new Material(Shader.Find("UI/Procedural UI Image"));
-            }
-            this.material = materialInstance;
         }
 
         protected void OnVerticesDirty()
@@ -135,6 +148,20 @@ namespace UnityEngine.UI.ProceduralImage
             {
                 this.sprite = EmptySprite.Get();
             }
+        }
+
+        protected void FixTexCoordsInCanvas()
+        {
+            Canvas c = this.GetComponentInParent<Canvas>();
+            if (c != null)
+            {
+                FixTexCoordsInCanvas(c);
+            }
+        }
+
+        protected void FixTexCoordsInCanvas(Canvas c)
+        {
+            c.additionalShaderChannels |= AdditionalCanvasShaderChannels.TexCoord1 | AdditionalCanvasShaderChannels.TexCoord2 | AdditionalCanvasShaderChannels.TexCoord3;
         }
 
 #if UNITY_EDITOR
@@ -156,7 +183,11 @@ namespace UnityEngine.UI.ProceduralImage
         {
             Rect r = this.rectTransform.rect;
             vec = new Vector4(Mathf.Max(vec.x, 0), Mathf.Max(vec.y, 0), Mathf.Max(vec.z, 0), Mathf.Max(vec.w, 0));
-            float scaleFactor = Mathf.Min(r.width / (vec.x + vec.y), r.width / (vec.z + vec.w), r.height / (vec.x + vec.w), r.height / (vec.z + vec.y), 1);
+
+            //Allocates mem
+            //float scaleFactor = Mathf.Min(r.width / (vec.x + vec.y), r.width / (vec.z + vec.w), r.height / (vec.x + vec.w), r.height / (vec.z + vec.y), 1);
+            //Allocation free:
+            float scaleFactor = Mathf.Min (Mathf.Min (Mathf.Min (Mathf.Min (r.width / (vec.x + vec.y), r.width / (vec.z + vec.w)), r.height / (vec.x + vec.w)), r.height / (vec.z + vec.y)), 1f);
             return vec * scaleFactor;
         }
 
@@ -166,14 +197,16 @@ namespace UnityEngine.UI.ProceduralImage
             EncodeAllInfoIntoVertices(toFill, CalculateInfo());
         }
 
+        protected override void OnTransformParentChanged()
+        {
+            base.OnTransformParentChanged();
+            FixTexCoordsInCanvas();
+        }
+
         ProceduralImageInfo CalculateInfo()
         {
             var r = GetPixelAdjustedRect();
-
-            Vector3[] corners = new Vector3[4];
-            rectTransform.GetWorldCorners(corners);
-            float pixelSize = Vector3.Distance(corners[1], corners[2]) / r.width;
-            pixelSize = pixelSize / Mathf.Max(0, falloffDistance);
+            float pixelSize = 1f / Mathf.Max(0, falloffDistance);
 
             Vector4 radius = FixRadius(Modifier.CalculateRadius(r));
 
@@ -216,6 +249,26 @@ namespace UnityEngine.UI.ProceduralImage
         {
             Vector2 kDecodeDot = new Vector2(1.0f, 1f / 65535.0f);
             return Vector2.Dot(new Vector2(Mathf.Floor(a * 65534) / 65535f, Mathf.Floor(b * 65534) / 65535f), kDecodeDot);
+        }
+
+        public override Material material
+        {
+            get
+            {
+                if (base.m_Material == null)
+                {
+                    return DefaultProceduralImageMaterial;
+                }
+                else
+                {
+                    return base.material;
+                }
+            }
+
+            set
+            {
+                base.material = value;
+            }
         }
 
 #if UNITY_EDITOR

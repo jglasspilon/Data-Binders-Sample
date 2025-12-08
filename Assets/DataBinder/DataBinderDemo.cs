@@ -64,7 +64,7 @@ public class DataBinderDemo : MonoBehaviour
         //Registers the json data provided to the dataBinder
         m_dataBinder.RegisterData(json);
 
-        //Plays the animation for the chart wipe and waits for half of the animation before yielding
+        //Plays the animation for the chart wipe and waits for half of the animation
         if(playAnimation)
             yield return StartCoroutine(AnimationDispatcher.TriggerAnimation(m_chartWipe, "Play", 0.5f));
 
