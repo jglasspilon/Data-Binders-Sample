@@ -49,13 +49,13 @@ Vastly improved turn-around speed and build stability for graphic modifications/
 ---
 
 # Exhibit Space
-### See for yourself
+### See for yourself!
 The demo is fully testable. Simply download as zip, extract and run inside of Unity to see the components and how they work.
 
-### Runtime results:
+### Runtime results
 ![Data-Binders Demo](Media/Data-Binder-Sample-Demo.gif)
 
-### Implementation logic results in under 50 lines of code:
+### Implementation logic results in under 50 lines of code
 ```csharp
 public class DataBinderDemo : MonoBehaviour
 {
