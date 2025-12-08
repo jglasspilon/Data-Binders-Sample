@@ -49,10 +49,10 @@ Vastly improved turn-around speed and build stability for graphic modifications/
 ---
 
 ## Exhibit Space
-Runtime results:
+### Runtime results:
 ![Data-Binders Demo](Media/Data-Binder-Sample-Demo.gif)
 
-Entire code required to bind all of the data to graphics for this demo using the Data-Binder system:
+### Implementation logic results in under 50 lines of code for full demo:
 <pre>public class DataBinderDemo : MonoBehaviour
 {
     [SerializeField]
