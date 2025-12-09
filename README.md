@@ -48,7 +48,8 @@ Vastly improved turn-around speed and build stability for graphic modifications/
 ---
 
 ## See for yourself
-The demo is fully playable. Simply download as zip, extract and run inside of Unity to explore the system and its implementation.
+The demo is fully playable. Simply download as zip and extract (or simply clone the repo). Then run inside of Unity to explore the system and its implementation.<br>
+> Unity version 6000.0.58f2
 
 ### Not a developer? Not a Problem!
 Simply download this build and you can see the Data Binder system in action.<br>
