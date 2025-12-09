@@ -43,12 +43,13 @@ Vastly improved turn-around speed and build stability for graphic modifications/
 
 ## Key Learnings
 - Abstracting out data binding logic vastly helps reduce code complexity and improve scalability
-- "No-Code" scalable systems like this allow for reduced scope of QA and vastly reduces the amount of code maintenance and chances of introducing new bugs
+- "No-Code" scalable systems like this allow for more agile development, reduced scope of QA, and vastly reduces the amount of code maintenance and chances of introducing new bugs
 
 ---
 
 ## See for yourself
-The demo is fully playable. Simply download as zip, extract and run inside of Unity to explore the system and its implementation.
+The demo is fully playable. Simply download as zip and extract (or simply clone the repo). Then run inside of Unity to explore the system and its implementation.<br>
+> Unity engine version 6000.0.58f2
 
 ### Not a developer? Not a Problem!
 Simply download this build and you can see the Data Binder system in action.<br>
