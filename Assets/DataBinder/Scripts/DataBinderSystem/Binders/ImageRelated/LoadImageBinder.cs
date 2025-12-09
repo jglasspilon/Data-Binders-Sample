@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Networking;
+using SimpleJSON;
 
 [System.Serializable]
 public class LoadImageBinder : GenericBinder<Image>
@@ -15,7 +16,7 @@ public class LoadImageBinder : GenericBinder<Image>
 
     public E.ImageSource Source { get { return m_source; } }
 
-    public override bool TryBindData(Dictionary<string, string> data)
+    public override bool TryBindData(Dictionary<string, JSONNode> data)
     {
         if (base.TryBindData(data))
         {

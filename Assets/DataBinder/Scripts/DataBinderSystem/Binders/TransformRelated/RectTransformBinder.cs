@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using SimpleJSON;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -14,7 +15,7 @@ public class RectTransformBinder : GenericBinder<RectTransform>
     //  [2] = width
     //  [3] = height
 
-    public override bool TryBindData(Dictionary<string, string> data)
+    public override bool TryBindData(Dictionary<string, JSONNode> data)
     {
         if (base.TryBindData(data))
         {
@@ -37,7 +38,7 @@ public class RectTransformBinder : GenericBinder<RectTransform>
         }
     }
 
-    private bool TrySetRectTransformData(Dictionary<string, string> data)
+    private bool TrySetRectTransformData(Dictionary<string, JSONNode> data)
     {
         float xPos = 0;
         float yPos = 0;
@@ -46,10 +47,10 @@ public class RectTransformBinder : GenericBinder<RectTransform>
 
         try
         {
-            xPos = float.Parse(data[Keys[0]]);
-            yPos = float.Parse(data[Keys[1]]);
-            width = float.Parse(data[Keys[2]]);
-            height = float.Parse(data[Keys[3]]);
+            xPos = data[Keys[0]];
+            yPos = data[Keys[1]];
+            width = data[Keys[2]];
+            height = data[Keys[3]];
 
             foreach (RectTransform target in m_targets)
             {

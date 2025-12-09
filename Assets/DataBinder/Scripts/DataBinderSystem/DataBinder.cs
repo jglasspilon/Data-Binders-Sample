@@ -9,16 +9,18 @@ using SimpleJSON;
 /// </summary>
 public class DataBinder: MonoBehaviour
 {
-    [SerializeField]
-    private string m_sortId = "";                                                                                   //ID used when manually organizing a list
+    [SerializeField] //Optional ID used when manually organizing a list
+    private string m_sortId = "";                                                                                   
 
-    [SerializeField]
-    private DataBinderLink[] m_allBinderLinks = new DataBinderLink[0];                                              //A list of all the data registrars attached
-    private Dictionary<string, string> m_dataDictionary = new Dictionary<string, string>();                         //Dictionary of all registered data
-    public bool CanUpdateData { get; set; } = true;                                                                 //Flags whether it is possible to bind data
+    [SerializeField] //A list of all the data links attached
+    private DataBinderLink[] m_allBinderLinks = new DataBinderLink[0];
+
+    //Dictionary of all registered data
+    private Dictionary<string, JSONNode> m_dataDictionary = new Dictionary<string, JSONNode>();                     
+  
     public DataBinderLink[] AllBinderLinks { get { return m_allBinderLinks; } set { m_allBinderLinks = value; } }   //Reference to the registrar list
     public string SortID { get { return m_sortId; } }                                                               //Reference to the sort ID
-    public Dictionary<string, string> DataDictionary { get { return m_dataDictionary; } }
+    public Dictionary<string, JSONNode> DataDictionary { get { return m_dataDictionary; } }
 
     /// <summary>
     /// Registers all of the data requested by the keys in all of the connected DataBinders at the node structure for each data registry attached, and adds them to the data dictionary.
@@ -46,11 +48,15 @@ public class DataBinder: MonoBehaviour
                         //if the key is not empty then register it and its data to the data dictionary
                         if (Idata.Key != null && Idata.Key.Length > 0)
                         {
-                            if (data[Idata.Key].ToString().ToLower() != "null")
+                            if (data[Idata.Key] != null)
                             {
-                                if (!m_dataDictionary.ContainsKey(Idata.Key))
+                                if (!m_dataDictionary.TryGetValue(Idata.Key, out JSONNode registeredValue))
                                 {
                                     m_dataDictionary.Add(Idata.Key, data[Idata.Key]);
+                                }
+                                else
+                                {
+                                    registeredValue = data[Idata.Key];
                                 }
                             }
                             else
@@ -67,9 +73,13 @@ public class DataBinder: MonoBehaviour
                                 {
                                     if (data[key].ToString().ToLower() != "null")
                                     {
-                                        if (!m_dataDictionary.ContainsKey(key))
+                                        if (!m_dataDictionary.TryGetValue(key, out JSONNode registeredValue))
                                         {
                                             m_dataDictionary.Add(key, data[key]);
+                                        }
+                                        else
+                                        {
+                                            registeredValue = data[key];
                                         }
                                     }
                                     else
@@ -88,16 +98,13 @@ public class DataBinder: MonoBehaviour
     /// </summary>
     public void BindData()
     {
-        if (CanUpdateData)
+        foreach (DataBinderLink binderLink in m_allBinderLinks)
         {
-            foreach (DataBinderLink binderLink in m_allBinderLinks)
+            foreach (BinderComponent binder in binderLink.ConnectedBinderComponents)
             {
-                foreach (BinderComponent binder in binderLink.ConnectedBinderComponents)
+                foreach (IDataBindable Idata in binder.GetAllBinders())
                 {
-                    foreach (IDataBindable Idata in binder.GetAllBinders())
-                    {
-                        Idata.TryBindData(m_dataDictionary);                        
-                    }
+                    Idata.TryBindData(m_dataDictionary);                        
                 }
             }
         }
@@ -125,7 +132,7 @@ public class DataBinder: MonoBehaviour
     /// </summary>
     /// <param name="key">Desired key for the data in the dictionary.</param>
     /// <returns>Returns the string data represented by the key in the data dictionary.</returns>
-    public string GetData(string key)
+    public JSONNode GetData(string key)
     {
         if (HasKey(key))
         {
@@ -155,7 +162,7 @@ public class DataBinder: MonoBehaviour
     public void DebugDictionary()
     {
         string debugString = "Databinder " + gameObject.name + " contains:\n";
-        foreach(KeyValuePair<string, string> entry in m_dataDictionary)
+        foreach(KeyValuePair<string, JSONNode> entry in m_dataDictionary)
         {
             debugString += $"Key: {entry.Key} --> {entry.Value}\n";
         }

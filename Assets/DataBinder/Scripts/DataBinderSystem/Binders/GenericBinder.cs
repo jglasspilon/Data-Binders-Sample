@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using SimpleJSON;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -22,7 +23,7 @@ public abstract class GenericBinder<T>: IDataBindable
     /// </summary>
     /// <param name="data">The dictionary in which to fetch the data to bind.</param>
     /// <returns>Returns true if key exists in data and binding was successfull.</returns>
-    public virtual bool TryBindData(Dictionary<string, string> data)
+    public virtual bool TryBindData(Dictionary<string, JSONNode> data)
     {
         if (Key != "" && !data.ContainsKey(Key))
         {

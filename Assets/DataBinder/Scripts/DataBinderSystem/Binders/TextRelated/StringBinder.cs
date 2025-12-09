@@ -1,11 +1,12 @@
-﻿using System.Collections;
+﻿using SimpleJSON;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 [System.Serializable]
 public class StringBinder : GenericBinder<string>
 {
-    public override bool TryBindData(Dictionary<string, string> data)
+    public override bool TryBindData(Dictionary<string, JSONNode> data)
     {
         if (base.TryBindData(data))
         {

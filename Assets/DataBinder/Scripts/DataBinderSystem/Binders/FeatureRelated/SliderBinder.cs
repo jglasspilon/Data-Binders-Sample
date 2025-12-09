@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using SimpleJSON;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -14,7 +15,7 @@ public class SliderBinder : GenericBinder<Slider>
     // [0] = Value
     // [1] = MaxValue
 
-    public override bool TryBindData(Dictionary<string, string> data)
+    public override bool TryBindData(Dictionary<string, JSONNode> data)
     {
         if (base.TryBindData(data))
         {
@@ -30,20 +31,20 @@ public class SliderBinder : GenericBinder<Slider>
         //do nothing
     }
 
-    private void BindToSlider(Dictionary<string, string> data)
+    private void BindToSlider(Dictionary<string, JSONNode> data)
     {
         foreach(Slider target in m_targets)
         {
             if(m_BindToValues == E.SliderBinderType.JustValue)
-                target.value = int.Parse(data[Key]);
+                target.value = data[Key];
 
             if(m_BindToValues == E.SliderBinderType.JustMax)
-                target.maxValue = int.Parse(data[Key]);
+                target.maxValue = data[Key];
 
             if(m_BindToValues == E.SliderBinderType.ValueAndMax)
             {
-                target.value = int.Parse(data[Keys[0]]);
-                target.maxValue = int.Parse(data[Keys[1]]);
+                target.value = data[Keys[0]];
+                target.maxValue = data[Keys[1]];
             }
         }
     }

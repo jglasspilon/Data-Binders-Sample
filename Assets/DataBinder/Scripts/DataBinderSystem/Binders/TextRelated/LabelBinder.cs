@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using SimpleJSON;
 
 [System.Serializable]
 public class LabelBinder : GenericBinder<TextMeshProUGUI>
@@ -12,7 +13,7 @@ public class LabelBinder : GenericBinder<TextMeshProUGUI>
     [SerializeField]
     private string m_breakLineIdentifier;
 
-    public override bool TryBindData(Dictionary<string, string> data)
+    public override bool TryBindData(Dictionary<string, JSONNode> data)
     {
         if (base.TryBindData(data))
         {

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using UnityEngine;
 using TMPro;
+using SimpleJSON;
 
 [System.Serializable]
 public class CombinedLabelBinder : GenericBinder<TextMeshProUGUI>
@@ -13,7 +14,7 @@ public class CombinedLabelBinder : GenericBinder<TextMeshProUGUI>
     [SerializeField]
     private string m_lineBreakIdentifier;
 
-    public override bool TryBindData(Dictionary<string, string> data)
+    public override bool TryBindData(Dictionary<string, JSONNode> data)
     {
         if (base.TryBindData(data))
         {
@@ -47,7 +48,7 @@ public class CombinedLabelBinder : GenericBinder<TextMeshProUGUI>
         }
     }
 
-    private string FormatText(Dictionary<string, string> data)
+    private string FormatText(Dictionary<string, JSONNode> data)
     {
         string result = m_format;
         Regex rgx = new Regex("\\[]");

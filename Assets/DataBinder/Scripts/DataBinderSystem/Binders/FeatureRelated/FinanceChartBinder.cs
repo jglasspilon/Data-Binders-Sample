@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using SimpleJSON;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -36,7 +37,7 @@ public class FinanceChartBinder : GenericBinder<ChartDraw>
     //  [4] = xAxisLabelsPosition
 
 
-    public override bool TryBindData(Dictionary<string, string> data)
+    public override bool TryBindData(Dictionary<string, JSONNode> data)
     {
         if (base.TryBindData(data))
         {
@@ -55,7 +56,7 @@ public class FinanceChartBinder : GenericBinder<ChartDraw>
         }
     }
 
-    private void DrawChartFromSelection(Dictionary<string, string> data)
+    private void DrawChartFromSelection(Dictionary<string, JSONNode> data)
     {
         foreach(ChartDraw target in m_targets) {
             switch (m_chartType)
