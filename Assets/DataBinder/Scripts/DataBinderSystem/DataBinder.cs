@@ -18,8 +18,8 @@ public class DataBinder: MonoBehaviour
     //Dictionary of all registered data
     private Dictionary<string, JSONNode> m_dataDictionary = new Dictionary<string, JSONNode>();                     
   
-    public DataBinderLink[] AllBinderLinks { get { return m_allBinderLinks; } set { m_allBinderLinks = value; } }   //Reference to the registrar list
-    public string SortID { get { return m_sortId; } }                                                               //Reference to the sort ID
+    public DataBinderLink[] AllBinderLinks { get { return m_allBinderLinks; } set { m_allBinderLinks = value; } }   
+    public string SortID { get { return m_sortId; } }                                                               
     public Dictionary<string, JSONNode> DataDictionary { get { return m_dataDictionary; } }
 
     /// <summary>

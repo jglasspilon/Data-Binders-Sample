@@ -9,8 +9,10 @@ public class DataBinderLink: MonoBehaviour
 {
     [SerializeField]
     private string[] m_nodeStructureSteps = new string[1];
+
     [SerializeField]
     private BinderComponent[] m_connectedBinderComponents = new BinderComponent[1];
+
     public string[] NodeStructureSteps { get { return m_nodeStructureSteps; } }
     public BinderComponent[] ConnectedBinderComponents { get { return m_connectedBinderComponents; } set { m_connectedBinderComponents = value; } }   
 }
