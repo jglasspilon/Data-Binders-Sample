@@ -5,9 +5,9 @@ Designed and developed a "No-code" data binder system that allows generic data b
 ---
 
 ## Tools & Technologies
-- Unity UGUI
-- C#  
-- JSON 
+![Unity](https://img.shields.io/badge/Unity-000000?style=for-the-badge&logo=unity&logoColor=white)
+![C#](https://img.shields.io/badge/C%23-239120?style=for-the-badge&logo=csharp&logoColor=white)
+![JSON](https://img.shields.io/badge/JSON-000000?style=for-the-badge&logo=json&logoColor=white)
 
 ---
 
@@ -36,8 +36,8 @@ This approach abstracts out all of the graphical binding logic from the graphic 
 
 ## Impact
 Vastly improved turn-around speed and build stability for graphic modifications/additions and changes to data binding. 
-- Before -> days of development time with extra QA required to catch bugs and issues
-- After -> hours of integration time with next to zero QA required since design/data modifications resulted in zero changes to code  
+- Before ➙ days of development time with extra QA required to catch bugs and issues
+- After ➙ hours of integration time with next to zero QA required since design/data modifications resulted in zero changes to code  
 
 ---
 
@@ -69,58 +69,72 @@ Simply download this build and you can see the Data Binder system in action.<br>
 
 ---
 
-### Implementation Logic Requires Under 50 Lines of Code
+### Entire Implementation Logic Requires Under 50 Lines of Code
 ```csharp
 public class DataBinderDemo : MonoBehaviour
 {
-    [SerializeField] //Element that registers data and binds it to all connected dataBinder components
-    private DataBinder m_dataBinder;                            
+    [SerializeField]
+    private DataBinder m_dataBinder;                            //Element that registers data and binds it to all connected dataBinder components
 
-    [SerializeField] //Element that generates and controls a list of dataBinder prefabs
-    private DataBinderList m_dataList;                          
+    [SerializeField]
+    private DataBinderList m_dataList;                          //Element that generates and controls a list of dataBinder prefabs
 
-    [SerializeField] //Animator that controls the animation of the wipe that covers the chart during data transition
-    private Animator m_chartWipe;                               
+    [SerializeField]
+    private Animator m_chartWipe;                               //Animator that controls the animation of the wipe that covers the chart during data transition
 
-    // Path (relative to the streaming assets path) pointing to the JSON files
-    private const string PATH_TO_JSON_FILE = "/JSONData/";
-
-    // Specifies the JSON file to read from on app start
-    private const string STARTUP_DATA = "Nasdaq.json";          
+    private bool m_isInitialized;
+    private const string PATH_TO_JSON_FILE = "/JSONData/";      //Path (relative to the streaming assets path) pointing to the JSON files
+    private const string STARTUP_DATA = "Nasdaq.json";          //Specifies the JSON file to read from on app start
 
     private void Start()
     {
         SetStartupData();
     }
 
+    /// <summary>
+    /// Read from the startup data json file and bind the data to the dataBinder and dataBinder list, bypassing the wipe animation
+    /// </summary>
     private void SetStartupData()
     {
-        JSONNode json = FileReader.ReadJSONFromFile(Application.streamingAssetsPath + PATH_TO_JSON_FILE + STARTUP_DATA);
-        if (json != null)
-            StartCoroutine(ChangeData(json, false));
-        else
-            Debug.LogError($"JSON file {STARTUP_DATA} does not exist. Could not change data.");
+        TryChangeData(STARTUP_DATA);
+        m_isInitialized = true;
     }
 
+    /// <summary>
+    /// Reads from the JSON file requested and if the JSON data exists, change the data
+    /// </summary>
+    /// <param name="JSONFile"></param>
     public void TryChangeData(string JSONFile)
     {
         JSONNode json = FileReader.ReadJSONFromFile(Application.streamingAssetsPath + PATH_TO_JSON_FILE + JSONFile);
         if (json != null)
-            StartCoroutine(ChangeData(json));
+            StartCoroutine(ChangeData(json, m_isInitialized));
         else
             Debug.LogError($"JSON file {JSONFile} does not exist. Could not change data.");
     }
 
-    private IEnumerator ChangeData(JSONNode json, bool playAnimation = true)
+    /// <summary>
+    /// Function that registers data to the dataBinder and dataBinder list, and the generates the list of prefabs accordingly and binds the data to the data binder 
+    /// Both the dataBinder and the dataBinder list use the same json data in this example but target different nodes within 
+    /// </summary>
+    /// <param name="json">JSON data to pass to the dataBinder elements</param>
+    /// <returns></returns>
+    private IEnumerator ChangeData(JSONNode json, bool playAnimation)
     {
+        //Generates a list of dataBinders based on the json provided
         m_dataList.GenerateList(json);
+
+        //Registers the json data provided to the dataBinder
         m_dataBinder.RegisterData(json);
 
-        if (playAnimation)
+        //Plays the animation for the chart wipe and waits for half of the animation
+        if(playAnimation)
             yield return StartCoroutine(AnimationDispatcher.TriggerAnimation(m_chartWipe, "Play", 0.5f));
 
+        //Bind the new data to all databinder components tied to the dataBinder
         m_dataBinder.BindData(); 
     }
 }
+
 ```
 
