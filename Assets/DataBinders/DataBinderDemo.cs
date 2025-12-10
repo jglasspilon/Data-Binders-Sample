@@ -17,6 +17,7 @@ public class DataBinderDemo : MonoBehaviour
     [SerializeField]
     private Animator m_chartWipe;                               //Animator that controls the animation of the wipe that covers the chart during data transition
 
+    private bool m_isInitialized;
     private const string PATH_TO_JSON_FILE = "/JSONData/";      //Path (relative to the streaming assets path) pointing to the JSON files
     private const string STARTUP_DATA = "Nasdaq.json";          //Specifies the JSON file to read from on app start
 
@@ -30,11 +31,8 @@ public class DataBinderDemo : MonoBehaviour
     /// </summary>
     private void SetStartupData()
     {
-        JSONNode json = FileReader.ReadJSONFromFile(Application.streamingAssetsPath + PATH_TO_JSON_FILE + STARTUP_DATA);
-        if (json != null)
-            StartCoroutine(ChangeData(json, false));
-        else
-            Debug.LogError($"JSON file {STARTUP_DATA} does not exist. Could not change data.");
+        TryChangeData(STARTUP_DATA);
+        m_isInitialized = true;
     }
 
     /// <summary>
@@ -45,7 +43,7 @@ public class DataBinderDemo : MonoBehaviour
     {
         JSONNode json = FileReader.ReadJSONFromFile(Application.streamingAssetsPath + PATH_TO_JSON_FILE + JSONFile);
         if (json != null)
-            StartCoroutine(ChangeData(json));
+            StartCoroutine(ChangeData(json, m_isInitialized));
         else
             Debug.LogError($"JSON file {JSONFile} does not exist. Could not change data.");
     }
@@ -56,7 +54,7 @@ public class DataBinderDemo : MonoBehaviour
     /// </summary>
     /// <param name="json">JSON data to pass to the dataBinder elements</param>
     /// <returns></returns>
-    private IEnumerator ChangeData(JSONNode json, bool playAnimation = true)
+    private IEnumerator ChangeData(JSONNode json, bool playAnimation)
     {
         //Generates a list of dataBinders based on the json provided
         m_dataList.GenerateList(json);
